@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "3d21df1e3a3b4f433fa3",
+  "position": {
+    "x": 16,
+    "y": 370,
+    "z": 1000,
+    "height": 330,
+    "width": 1248,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohort Retention"
+                    }
+                  },
+                  "Property": "cohort_month"
+                }
+              },
+              "queryRef": "Cohort Retention.cohort_month",
+              "nativeQueryRef": "Cohort Month"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohort Retention"
+                    }
+                  },
+                  "Property": "cohort_index"
+                }
+              },
+              "queryRef": "Cohort Retention.cohort_index",
+              "nativeQueryRef": "Cohort Index"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohort Retention"
+                    }
+                  },
+                  "Property": "Retained Customers"
+                }
+              },
+              "queryRef": "Cohort Retention.Retained Customers",
+              "nativeQueryRef": "Retained Customers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohort Retention"
+                    }
+                  },
+                  "Property": "Cohort Size"
+                }
+              },
+              "queryRef": "Cohort Retention.Cohort Size",
+              "nativeQueryRef": "Cohort Size"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohort Retention"
+                    }
+                  },
+                  "Property": "Retention Rate"
+                }
+              },
+              "queryRef": "Cohort Retention.Retention Rate",
+              "nativeQueryRef": "Retention Rate"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cohort Detail'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

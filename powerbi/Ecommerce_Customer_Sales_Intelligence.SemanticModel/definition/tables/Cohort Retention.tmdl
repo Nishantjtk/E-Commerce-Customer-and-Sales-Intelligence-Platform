@@ -1,0 +1,80 @@
+table 'Cohort Retention'
+	lineageTag: 90cef3b5-57ac-4acd-8b99-c380b573467e
+
+	measure 'Retained Customers' = SUM('Cohort Retention'[retained_customers])
+		lineageTag: 41b86810-0401-4848-a0ff-bed2593c02d7
+
+	measure 'Cohort Size' =
+			CALCULATE(
+			    MAX('Cohort Retention'[retained_customers]),
+			    ALLEXCEPT('Cohort Retention', 'Cohort Retention'[cohort_month]),
+			    'Cohort Retention'[cohort_index] = 0
+			)
+		lineageTag: fccc3e63-17b8-4b52-84af-517fe66f62a7
+
+	measure 'Retention Rate' =
+			IF(
+			    HASONEVALUE('Cohort Retention'[cohort_month])
+			        && HASONEVALUE('Cohort Retention'[cohort_index]),
+			    DIVIDE([Retained Customers], [Cohort Size])
+			)
+		formatString: 0.00%
+		lineageTag: 0e7a079d-0208-432f-9471-08a55cf6046e
+
+	column cohort_month
+		dataType: dateTime
+		formatString: MMM yyyy
+		lineageTag: 565a75ed-1d80-43aa-b3dc-e3f4a079f157
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		variation Variation
+			isDefault
+			relationship: c020bcec-a00a-4aeb-afa9-2ef120f92fc3
+			defaultHierarchy: LocalDateTable_20420e70-dfbb-478a-aed3-84f2d8599d22.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fa1a5d34-e9aa-4fc6-ba67-8f0affbf7712
+		summarizeBy: none
+		sourceColumn: purchase_month
+
+		variation Variation
+			isDefault
+			relationship: 80211a64-7022-4879-92e5-0f0b375f08ea
+			defaultHierarchy: LocalDateTable_62c8c438-9fdb-48a5-9912-d39302c1e366.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_index
+		dataType: int64
+		lineageTag: 604fb81d-f290-45ea-ae2d-00967f3ea16b
+		summarizeBy: sum
+		sourceColumn: cohort_index
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_customers
+		dataType: int64
+		lineageTag: 33c83fff-580d-4fe3-be4a-ff2b0e7bb511
+		summarizeBy: sum
+		sourceColumn: retained_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Cohort Retention' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="cohort_retention"]}[Data]
+				in
+				    View
+

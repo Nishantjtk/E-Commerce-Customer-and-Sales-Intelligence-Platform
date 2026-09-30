@@ -1,0 +1,97 @@
+table 'Category Experience'
+	lineageTag: e4fdcfee-db23-46a1-8fbb-e9e645f49b5a
+
+	measure 'Category Revenue' = SUM('Category Experience'[revenue])
+		lineageTag: 545a3cec-d3b0-4964-95a3-b5e5d982e8e1
+
+	measure 'Category Freight Revenue' = SUM('Category Experience'[freight_revenue])
+		lineageTag: 780467d1-df27-44de-84a2-94d785596446
+
+	measure 'Category Delivered Orders' = SUM('Category Experience'[delivered_orders])
+		lineageTag: 92cef0f3-087b-41ec-be3c-f53cb3401005
+
+	measure 'Category Average Review Score' = AVERAGE('Category Experience'[avg_review_score])
+		lineageTag: e4b714f3-f410-434e-9e85-87074ba67bae
+
+	measure 'Category Late Delivery Rate' = AVERAGE('Category Experience'[late_delivery_rate])
+		lineageTag: 56e95b84-a674-4e8f-bcd2-407021aac286
+
+	column category_name
+		dataType: string
+		lineageTag: 87c601c4-8664-454a-afc4-4da59f553236
+		sourceColumn: category_name
+
+	column delivered_orders
+		dataType: int64
+		lineageTag: 4cde4cc2-3f62-4e08-903a-9e3456b0bd17
+		sourceColumn: delivered_orders
+
+	column revenue
+		dataType: double
+		lineageTag: 1fd15b69-1b45-4950-9fb3-2f2be086f04c
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_delivery_days
+		dataType: double
+		lineageTag: 911ba7d8-3440-412f-9cf9-f976237b68b7
+		summarizeBy: sum
+		sourceColumn: avg_delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column late_delivery_rate
+		dataType: double
+		lineageTag: 3ab73b29-499b-4124-909f-ece4c75eb04e
+		summarizeBy: sum
+		sourceColumn: late_delivery_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_review_score
+		dataType: double
+		lineageTag: dd41c9fc-481e-4d96-90a1-0dadbe05abec
+		summarizeBy: sum
+		sourceColumn: avg_review_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_revenue
+		dataType: double
+		lineageTag: 09092c6d-fb87-4014-bb38-203b1c0b40a8
+		summarizeBy: sum
+		sourceColumn: freight_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_merchandise_value
+		dataType: double
+		lineageTag: ffede2e6-b500-4d86-999f-f640ec993042
+		summarizeBy: sum
+		sourceColumn: gross_merchandise_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Category Experience' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="category_experience"]}[Data]
+				in
+				    View
+

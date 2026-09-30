@@ -1,0 +1,106 @@
+table 'Fact Review'
+	lineageTag: c89d95f2-7baa-422b-bb77-b10c71419f78
+
+	measure 'Review Count' = COUNTROWS('Fact Review')
+		lineageTag: b687b369-47cd-4ead-883f-f7ce2da952e1
+
+	measure 'Average Review Score' = AVERAGE('Fact Review'[review_score])
+		lineageTag: f415ac08-e946-4947-af4b-cf1febe10eab
+
+	measure 'Low Review Count' = CALCULATE([Review Count], 'Fact Review'[review_score] <= 2)
+		lineageTag: 3ab9f70b-f654-4499-abc6-b5c7bb771537
+
+	measure 'Low Review Rate' = DIVIDE([Low Review Count], [Review Count])
+		lineageTag: e7e6e03f-ccf2-42b4-b914-35fbb9dcf1e3
+
+	column review_row_id
+		dataType: int64
+		lineageTag: ba30f446-f370-4f68-9ab3-d879e2eb6ad8
+		sourceColumn: review_row_id
+
+	column review_id
+		dataType: string
+		lineageTag: e58caeb6-eea3-482c-9484-c95099dc1fe1
+		sourceColumn: review_id
+
+	column order_id
+		dataType: string
+		lineageTag: 9c4bb8f7-8358-490f-ac2f-8626a24f1048
+		sourceColumn: order_id
+
+	column review_score
+		dataType: int64
+		lineageTag: ee7ebf67-d279-4277-be41-96e5036c2b2b
+		sourceColumn: review_score
+
+	column review_creation_date
+		dataType: dateTime
+		lineageTag: 02340076-85d5-400d-9c2e-162f0e1b60c4
+		sourceColumn: review_creation_date
+
+	column review_answer_timestamp
+		dataType: dateTime
+		lineageTag: 3b34a4a3-723d-4353-a117-fdfcfd3753ee
+		sourceColumn: review_answer_timestamp
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		lineageTag: b4c0f396-a4b5-4cee-aed5-94253851ef35
+		sourceColumn: order_purchase_timestamp
+
+	column order_status
+		dataType: string
+		lineageTag: 8746ab9d-9d54-4ea4-acfa-7dced7ae4429
+		sourceColumn: order_status
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 0bc4616e-934c-4cf9-b9d8-9b270d9587b3
+		sourceColumn: customer_unique_id
+
+	column customer_state
+		dataType: string
+		lineageTag: 655be4ee-262b-401e-b765-d66499d0ac98
+		sourceColumn: customer_state
+
+	column delivery_days
+		dataType: double
+		lineageTag: 185d3ed3-4f88-498a-b6c1-f4cadb66c98b
+		summarizeBy: sum
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_late_delivery
+		dataType: int64
+		lineageTag: 0aff1ed0-ca79-414f-a999-18b0b2075c1e
+		sourceColumn: is_late_delivery
+
+	column delivery_status
+		dataType: string
+		lineageTag: de776994-774a-4a82-8d5c-d3e4c81f2db6
+		sourceColumn: delivery_status
+
+	column 'Purchase Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b0bc6f4b-2c7e-49c1-b4de-ef6938dc0be0
+		summarizeBy: none
+		sourceColumn: Purchase Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Review' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="review_detail"]}[Data],
+				    #"Added Purchase Date" = Table.AddColumn(View, "Purchase Date", each Date.From([order_purchase_timestamp]), type date)
+				in
+				    #"Added Purchase Date"
+

@@ -1,0 +1,8 @@
+# Install after a working Python interpreter is available.
+pandas>=2.2,<3
+numpy>=1.26,<3
+SQLAlchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+jupyterlab>=4,<5

@@ -1,0 +1,25 @@
+table 'Dim Seller'
+	lineageTag: 79ff619a-205d-425a-a733-55b944926891
+
+	column seller_id
+		dataType: string
+		lineageTag: 2410c46b-6f0a-439c-afad-dc126a2d1cda
+		sourceColumn: seller_id
+
+	column seller_state
+		dataType: string
+		lineageTag: e194e327-8834-49c4-a882-55f1252e8278
+		sourceColumn: seller_state
+
+	partition 'Dim Seller' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_line"]}[Data],
+				    Selected = Table.SelectColumns(View, {"seller_id", "seller_state"}),
+				    NonBlank = Table.SelectRows(Selected, each [seller_id] <> null and [seller_id] <> ""),
+				    DistinctSellers = Table.Distinct(NonBlank, {"seller_id"})
+				in
+				    DistinctSellers
+

@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["localhost:5433: ecommerce_intelligence","Fact Order","Fact Order Line","Fact Payment","Fact Review","Customer RFM","Cohort Retention","Category Experience","Seller Experience","Dim Customer","Dim Customer State","Dim Category","Dim Seller"]
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+ref table 'localhost:5433: ecommerce_intelligence'
+ref table 'Fact Order'
+ref table 'Fact Order Line'
+ref table 'Fact Payment'
+ref table 'Fact Review'
+ref table 'Customer RFM'
+ref table 'Cohort Retention'
+ref table 'Category Experience'
+ref table 'Seller Experience'
+ref table 'Dim Customer'
+ref table 'Dim Customer State'
+ref table 'Dim Category'
+ref table 'Dim Seller'
+ref table 'Dim Date'
+ref table DateTableTemplate_358e0891-d330-449b-a58b-dbd920881311
+ref table LocalDateTable_6bf2cdb4-b40c-4924-a2bc-653866404558
+ref table LocalDateTable_20420e70-dfbb-478a-aed3-84f2d8599d22
+ref table LocalDateTable_62c8c438-9fdb-48a5-9912-d39302c1e366
+
+ref cultureInfo en-US
+

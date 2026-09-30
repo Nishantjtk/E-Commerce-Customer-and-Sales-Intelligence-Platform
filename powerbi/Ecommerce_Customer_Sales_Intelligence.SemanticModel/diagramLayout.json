@@ -1,0 +1,204 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 549.45918055742459,
+            "y": 362.37646228289418
+          },
+          "nodeIndex": "Category Experience",
+          "nodeLineageTag": "e4fdcfee-db23-46a1-8fbb-e9e645f49b5a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1464.6983392706379,
+            "y": 804.916810601917
+          },
+          "nodeIndex": "Cohort Retention",
+          "nodeLineageTag": "90cef3b5-57ac-4acd-8b99-c380b573467e",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1230.6983392706377,
+            "y": 657.34791099952827
+          },
+          "nodeIndex": "Customer RFM",
+          "nodeLineageTag": "d1c834e8-041b-4faf-b7ec-755ccd6db26a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 950.44585804012991
+          },
+          "nodeIndex": "Dim Category",
+          "nodeLineageTag": "4f7e9c2d-50ad-4944-a5e5-b039003239d7",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 941.33264896489231,
+            "y": 948.97910465228938
+          },
+          "nodeIndex": "Dim Customer",
+          "nodeLineageTag": "0a79f11a-a79b-44aa-83c3-77bdf9cb621f",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 530.3807935134588,
+            "y": 949.31242500487656
+          },
+          "nodeIndex": "Dim Customer State",
+          "nodeLineageTag": "6b7b67ce-6c1e-4d83-a06b-4066e838d73a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 261.95599382252328,
+            "y": 650.39493141034677
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "38b5423c-2e22-4234-902a-bfc14034c95b",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 358.71041522837879,
+            "y": 1679.8336212038339
+          },
+          "nodeIndex": "Dim Seller",
+          "nodeLineageTag": "79ff619a-205d-425a-a733-55b944926891",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 575.67261943608162,
+            "y": 1324.1496755377027
+          },
+          "nodeIndex": "Fact Order",
+          "nodeLineageTag": "e4907e84-0831-4fe1-8eec-def1f49b4b17",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 289.27870383775235,
+            "y": 1108.5736739182432
+          },
+          "nodeIndex": "Fact Order Line",
+          "nodeLineageTag": "415cbb01-9093-48a2-9f93-2b1515af3062",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 749.93265214664382,
+            "y": -50
+          },
+          "nodeIndex": "Fact Payment",
+          "nodeLineageTag": "0cbcbc85-76dc-4641-a5c2-48c6ed87eb54",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 997.49008147283757,
+            "y": 304.95483376781021
+          },
+          "nodeIndex": "Fact Review",
+          "nodeLineageTag": "c89d95f2-7baa-422b-bb77-b10c71419f78",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1748.6983392706379,
+            "y": 828.916810601917
+          },
+          "nodeIndex": "localhost:5433: ecommerce_intelligence",
+          "nodeLineageTag": "eec537e0-dd12-40b7-80bd-cb52360448a9",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 864.34912673102826,
+            "y": 1106.6617918908603
+          },
+          "nodeIndex": "Seller Experience",
+          "nodeLineageTag": "617a3b3f-fcf1-4a13-b042-b7c16024ec23",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

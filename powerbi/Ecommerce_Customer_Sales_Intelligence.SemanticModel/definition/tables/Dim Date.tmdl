@@ -1,0 +1,55 @@
+table 'Dim Date'
+	lineageTag: 38b5423c-2e22-4234-902a-bfc14034c95b
+	dataCategory: Time
+
+	column Date
+		isUnique
+		lineageTag: f015dcba-360d-4b6a-a8ae-3575ab94f167
+		isNameInferred
+		sourceColumn: [Date]
+
+	column Year
+		lineageTag: f3d1ac29-2012-4fee-92c0-ea031ff5dda4
+		isNameInferred
+		sourceColumn: [Year]
+
+	column Quarter
+		lineageTag: f3decb5e-887a-4c5f-a036-dabe94e98a4f
+		isNameInferred
+		sourceColumn: [Quarter]
+
+	column 'Month Number'
+		lineageTag: 5bcb4528-304b-421a-99a7-d251df419e83
+		isNameInferred
+		sourceColumn: [Month Number]
+
+	column Month
+		lineageTag: 823c48b0-5e98-4e5f-b00c-d5d079dd11f9
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
+
+	column 'Year Month'
+		lineageTag: 34469cf9-160a-4905-b431-79cc7804e51e
+		isNameInferred
+		sourceColumn: [Year Month]
+		sortByColumn: 'Year Month Sort'
+
+	column 'Year Month Sort'
+		lineageTag: ff44234d-9150-4cbb-9329-2493334e7042
+		isNameInferred
+		sourceColumn: [Year Month Sort]
+
+	partition 'Dim Date' = calculated
+		mode: import
+		source =
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2016, 1, 1), DATE(2018, 12, 31)),
+				    "Year", YEAR([Date]),
+				    "Quarter", "Q" & FORMAT([Date], "Q"),
+				    "Month Number", MONTH([Date]),
+				    "Month", FORMAT([Date], "MMM"),
+				    "Year Month", FORMAT([Date], "YYYY-MM"),
+				    "Year Month Sort", YEAR([Date]) * 100 + MONTH([Date])
+				 )
+

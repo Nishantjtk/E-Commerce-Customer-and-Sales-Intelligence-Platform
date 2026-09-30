@@ -1,0 +1,230 @@
+table 'Fact Order'
+	lineageTag: e4907e84-0831-4fe1-8eec-def1f49b4b17
+
+	measure 'All Orders' = COUNTROWS('Fact Order')
+		lineageTag: ca08b24e-cd15-44a9-bec7-559260c06e83
+
+	measure 'Delivered Orders' = CALCULATE([All Orders], 'Fact Order'[order_status] = "delivered")
+		lineageTag: fd535a27-5b0b-4500-bc26-021063903c78
+
+	measure 'Delivered Revenue' = CALCULATE(SUM('Fact Order'[item_revenue]), 'Fact Order'[order_status] = "delivered")
+		lineageTag: 4ea6b3d4-5a58-437d-9e6e-71dacb931f5b
+
+	measure 'Delivered Freight Revenue' = CALCULATE(SUM('Fact Order'[freight_revenue]), 'Fact Order'[order_status] = "delivered")
+		lineageTag: f1c13555-56ba-40ae-b67f-1f9402e7d460
+
+	measure 'Delivered GMV' = CALCULATE(SUM('Fact Order'[gross_merchandise_value]), 'Fact Order'[order_status] = "delivered")
+		lineageTag: 9d9fb263-1cc7-4350-9e3a-b28819f95bf3
+
+	measure 'Delivered Customers' =
+			CALCULATE(
+			    DISTINCTCOUNT('Fact Order'[customer_unique_id]),
+			    'Fact Order'[order_status] = "delivered"
+			)
+		lineageTag: f68984c0-43fd-416a-956e-c5c9bd1abe13
+
+	measure 'Average Order Value' = DIVIDE([Delivered Revenue], [Delivered Orders])
+		lineageTag: dfa63be7-2f51-46db-97a7-f75a37e6ab7c
+
+	measure 'Average Revenue per Customer' = DIVIDE([Delivered Revenue], [Delivered Customers])
+		lineageTag: bb8973e8-005a-4e3a-ae40-ef2d95a111d8
+
+	measure 'Average Delivery Days' =
+			CALCULATE(
+			    AVERAGE('Fact Order'[delivery_days]),
+			    'Fact Order'[order_status] = "delivered",
+			    NOT ISBLANK('Fact Order'[delivery_days])
+			)
+		lineageTag: b706305d-2df1-4ce2-8951-09873664d270
+
+	measure 'Late Deliveries' =
+			CALCULATE(
+			    COUNTROWS('Fact Order'),
+			    'Fact Order'[order_status] = "delivered",
+			    NOT ISBLANK('Fact Order'[delivery_days]),
+			    'Fact Order'[is_late_delivery] = 1
+			)
+		lineageTag: d5a93a8f-c778-4cee-abea-b5fa6a5aea35
+
+	measure 'Delivered With Actual Date' =
+			CALCULATE(
+			    COUNTROWS('Fact Order'),
+			    'Fact Order'[order_status] = "delivered",
+			    NOT ISBLANK('Fact Order'[delivery_days])
+			)
+		lineageTag: 82ea03ad-7913-419c-974d-b1320ac893a5
+
+	measure 'Late Delivery Rate' = DIVIDE([Late Deliveries], [Delivered With Actual Date])
+		lineageTag: c9e29b87-3de4-4dd6-a1e8-9c02c376af3f
+
+	measure 'Revenue MoM %' =
+			VAR PreviousMonthRevenue = CALCULATE([Delivered Revenue], DATEADD('Dim Date'[Date], -1, MONTH))
+			RETURN DIVIDE([Delivered Revenue] - PreviousMonthRevenue, PreviousMonthRevenue)
+		lineageTag: 3fd16b7b-8999-4f1c-a893-12613afe133c
+
+	measure 'Order MoM %' =
+			VAR PreviousMonthOrders = CALCULATE([Delivered Orders], DATEADD('Dim Date'[Date], -1, MONTH))
+			RETURN DIVIDE([Delivered Orders] - PreviousMonthOrders, PreviousMonthOrders)
+		lineageTag: 2ddd4d0d-f680-4605-9a30-03164157db56
+
+	column order_id
+		dataType: string
+		lineageTag: f57dda01-0055-4967-b29a-9a49f6f6e567
+		sourceColumn: order_id
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: c40b506d-5c11-44db-accb-f9f31bd715a5
+		sourceColumn: customer_unique_id
+
+	column customer_city
+		dataType: string
+		lineageTag: 3dd4c064-922d-456c-84e0-8e3d909cb79a
+		sourceColumn: customer_city
+
+	column customer_state
+		dataType: string
+		lineageTag: c13ecf85-c4c7-4183-9e25-47900a057e1a
+		sourceColumn: customer_state
+
+	column order_status
+		dataType: string
+		lineageTag: a858eeff-54b9-4c2f-ad2c-a62df5edba0a
+		sourceColumn: order_status
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		lineageTag: de2deeb5-30cd-40cf-860a-b937092dea86
+		sourceColumn: order_purchase_timestamp
+
+	column order_approved_at
+		dataType: dateTime
+		lineageTag: 0d844323-8ca8-4ca4-bf1d-c718762d6628
+		sourceColumn: order_approved_at
+
+	column order_delivered_carrier_date
+		dataType: dateTime
+		lineageTag: 8bf6b49f-042b-4357-b121-33e5f0279107
+		sourceColumn: order_delivered_carrier_date
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		lineageTag: 97ed747e-06fe-4a9c-9c87-2bdf45f66143
+		sourceColumn: order_delivered_customer_date
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		lineageTag: 4c683aa5-c983-48d3-8b39-8f9e13f22171
+		sourceColumn: order_estimated_delivery_date
+
+	column item_revenue
+		dataType: double
+		lineageTag: c5c95039-f8c4-4d0c-a763-c8bb40d4962e
+		summarizeBy: sum
+		sourceColumn: item_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_revenue
+		dataType: double
+		lineageTag: f2bfadde-b12b-4be4-9529-18be8d116d49
+		summarizeBy: sum
+		sourceColumn: freight_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_merchandise_value
+		dataType: double
+		lineageTag: ea536899-cf73-4e14-ac2d-0b4a32f1ab63
+		summarizeBy: sum
+		sourceColumn: gross_merchandise_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_count
+		dataType: int64
+		lineageTag: 8d3d9524-5661-458d-b925-5fa77102d409
+		sourceColumn: item_count
+
+	column payment_value
+		dataType: double
+		lineageTag: e4004d8b-0109-4406-8837-a6243fe5275d
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max_installments
+		dataType: int64
+		lineageTag: 55aa199a-7256-42c1-8c8d-b66df7f31b2d
+		sourceColumn: max_installments
+
+	column avg_review_score
+		dataType: double
+		lineageTag: b1c5979f-e347-412f-aae8-bec897b870d1
+		summarizeBy: sum
+		sourceColumn: avg_review_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column review_count
+		dataType: int64
+		lineageTag: 5d9d43a9-99ae-42b2-96ab-33518078baab
+		sourceColumn: review_count
+
+	column delivery_days
+		dataType: double
+		lineageTag: e2b01bff-628f-4e0f-99d4-d1a13565e534
+		summarizeBy: sum
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_late_delivery
+		dataType: int64
+		lineageTag: cf178bba-e09f-4325-bc03-3cd9d80e4ad2
+		sourceColumn: is_late_delivery
+
+	column 'Purchase Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 97510902-1375-4792-a957-b51c9ae6d084
+		summarizeBy: none
+		sourceColumn: Purchase Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Status' =
+			SWITCH(
+			    TRUE(),
+			    ISBLANK('Fact Order'[delivery_days]), "Not delivered",
+			    'Fact Order'[is_late_delivery] = 1, "Late",
+			    "On time / early"
+			)
+		dataType: string
+		lineageTag: c0861649-cfdb-44ea-adfa-917d1eb3d7ea
+
+	partition 'Fact Order' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_financials"]}[Data],
+				    #"Added Purchase Date" = Table.AddColumn(View, "Purchase Date", each Date.From([order_purchase_timestamp]), type date)
+				in
+				    #"Added Purchase Date"
+

@@ -1,0 +1,20 @@
+table 'Dim Customer'
+	lineageTag: 0a79f11a-a79b-44aa-83c3-77bdf9cb621f
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 7397909c-bddb-4804-9222-f80a7314b734
+		sourceColumn: customer_unique_id
+
+	partition 'Dim Customer' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_financials"]}[Data],
+				    Selected = Table.SelectColumns(View, {"customer_unique_id"}),
+				    NonBlank = Table.SelectRows(Selected, each [customer_unique_id] <> null and [customer_unique_id] <> ""),
+				    DistinctCustomers = Table.Distinct(NonBlank)
+				in
+				    DistinctCustomers
+

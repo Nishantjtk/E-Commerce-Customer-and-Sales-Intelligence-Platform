@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection279766e9a1006988ea1cdccc",
+  "displayName": "Seller Detail",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter36defccec9cb879fc51d398c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Seller"
+              }
+            },
+            "Property": "seller_id"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "518e014f4645513c9de0",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "Param_Filter36defccec9cb879fc51d398c",
+        "boundFilter": "Filter36defccec9cb879fc51d398c",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Seller"
+              }
+            },
+            "Property": "seller_id"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "69a0bce9ad348778f2e4",
+  "position": {
+    "x": 16,
+    "y": 100,
+    "z": 1000,
+    "height": 270,
+    "width": 410,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Category"
+                    }
+                  },
+                  "Property": "category_name"
+                }
+              },
+              "queryRef": "Dim Category.category_name",
+              "nativeQueryRef": "Category",
+              "active": true
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Revenue"
+                }
+              },
+              "queryRef": "Category Experience.Category Revenue",
+              "nativeQueryRef": "Category Revenue"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Delivered Orders"
+                }
+              },
+              "queryRef": "Category Experience.Category Delivered Orders",
+              "nativeQueryRef": "Category Delivered Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Freight Revenue"
+                }
+              },
+              "queryRef": "Category Experience.Category Freight Revenue",
+              "nativeQueryRef": "Category Freight Revenue"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Late Delivery Rate"
+                }
+              },
+              "queryRef": "Category Experience.Category Late Delivery Rate",
+              "nativeQueryRef": "Category Late Delivery Rate",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Average Review Score"
+                }
+              },
+              "queryRef": "Category Experience.Category Average Review Score",
+              "nativeQueryRef": "Category Average Review Score"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Category Experience'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

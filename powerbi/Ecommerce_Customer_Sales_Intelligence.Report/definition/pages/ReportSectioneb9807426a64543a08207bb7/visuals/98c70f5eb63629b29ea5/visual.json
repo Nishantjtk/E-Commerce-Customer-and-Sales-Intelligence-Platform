@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "98c70f5eb63629b29ea5",
+  "position": {
+    "x": 952,
+    "y": 352,
+    "z": 1000,
+    "height": 350,
+    "width": 312,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Payment"
+                    }
+                  },
+                  "Property": "payment_installments"
+                }
+              },
+              "queryRef": "Fact Payment.payment_installments",
+              "nativeQueryRef": "Payment Installments",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Payment"
+                    }
+                  },
+                  "Property": "Delivered Payment Value"
+                }
+              },
+              "queryRef": "Fact Payment.Delivered Payment Value",
+              "nativeQueryRef": "Delivered Payment Value"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Payment Installments'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

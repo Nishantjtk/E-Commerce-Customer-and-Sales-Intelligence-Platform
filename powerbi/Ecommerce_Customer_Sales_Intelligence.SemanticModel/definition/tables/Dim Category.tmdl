@@ -1,0 +1,20 @@
+table 'Dim Category'
+	lineageTag: 4f7e9c2d-50ad-4944-a5e5-b039003239d7
+
+	column category_name
+		dataType: string
+		lineageTag: eeb549bd-563f-4035-846f-0aadfb61cccc
+		sourceColumn: category_name
+
+	partition 'Dim Category' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_line"]}[Data],
+				    Selected = Table.SelectColumns(View, {"category_name"}),
+				    NonBlank = Table.SelectRows(Selected, each [category_name] <> null and [category_name] <> ""),
+				    DistinctCategories = Table.Distinct(NonBlank)
+				in
+				    DistinctCategories
+

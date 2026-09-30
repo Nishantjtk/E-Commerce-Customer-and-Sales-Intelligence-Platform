@@ -1,0 +1,193 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "cd8324308147c55b09ba",
+  "position": {
+    "x": 16,
+    "y": 352,
+    "z": 1000,
+    "height": 350,
+    "width": 610,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "product_id"
+                }
+              },
+              "queryRef": "Fact Order Line.product_id",
+              "nativeQueryRef": "Product ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Category"
+                    }
+                  },
+                  "Property": "category_name"
+                }
+              },
+              "queryRef": "Dim Category.category_name",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "Delivered Item Revenue (Line)"
+                }
+              },
+              "queryRef": "Fact Order Line.Delivered Item Revenue (Line)",
+              "nativeQueryRef": "Delivered Item Revenue (Line)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "Delivered Orders (Line)"
+                }
+              },
+              "queryRef": "Fact Order Line.Delivered Orders (Line)",
+              "nativeQueryRef": "Delivered Orders (Line)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "Product Rank by Revenue"
+                }
+              },
+              "queryRef": "Fact Order Line.Product Rank by Revenue",
+              "nativeQueryRef": "Product Rank by Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact Order Line"
+                  }
+                },
+                "Property": "Delivered Item Revenue (Line)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top Products'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter27d94b814a01c6c647084bc5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact Order Line"
+              }
+            },
+            "Property": "Product Rank by Revenue"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "Fact Order Line",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 4,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "f"
+                        }
+                      },
+                      "Property": "Product Rank by Revenue"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "20L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

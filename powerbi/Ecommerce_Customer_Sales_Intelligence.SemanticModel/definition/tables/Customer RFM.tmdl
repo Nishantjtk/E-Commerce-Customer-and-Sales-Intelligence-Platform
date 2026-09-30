@@ -1,0 +1,114 @@
+table 'Customer RFM'
+	lineageTag: d1c834e8-041b-4faf-b7ec-755ccd6db26a
+
+	measure 'RFM Customers' = DISTINCTCOUNT('Customer RFM'[customer_unique_id])
+		lineageTag: 8b9c90be-549f-4d0e-971f-c8b22a6604ca
+
+	measure 'RFM Revenue' = SUM('Customer RFM'[monetary])
+		lineageTag: 4e235a25-f5c5-4426-8621-917988954cb4
+
+	measure 'Repeat Customers' = CALCULATE([RFM Customers], 'Customer RFM'[frequency] > 1)
+		lineageTag: 9f29dd16-09b8-49a0-bbce-b6504cec1ce4
+
+	measure 'Repeat Customer Rate' = DIVIDE([Repeat Customers], [RFM Customers])
+		lineageTag: 0b9e86fc-136a-4f9e-8423-183e63a6fdc3
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: fc3ea215-de09-4992-a6f2-ac0edc432367
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5cc378f4-8c8e-472f-aade-f5fb6b1cd54f
+		summarizeBy: none
+		sourceColumn: last_purchase_date
+
+		variation Variation
+			isDefault
+			relationship: dac7334b-579f-4007-b1f9-95990437f78a
+			defaultHierarchy: LocalDateTable_6bf2cdb4-b40c-4924-a2bc-653866404558.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency
+		dataType: int64
+		lineageTag: 810430d2-c708-45c8-b5a8-ddf347f1b40d
+		summarizeBy: sum
+		sourceColumn: frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary
+		dataType: double
+		lineageTag: 2d2bc6ec-6e8f-4eb6-8b12-039ec81552f7
+		summarizeBy: sum
+		sourceColumn: monetary
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recency_days
+		dataType: int64
+		lineageTag: 5e5499a0-9131-4c1e-a466-2d0b4e17d351
+		summarizeBy: sum
+		sourceColumn: recency_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column recency_score
+		dataType: int64
+		lineageTag: abfc1758-b002-460a-97ca-563e676e482c
+		summarizeBy: sum
+		sourceColumn: recency_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency_score
+		dataType: int64
+		lineageTag: 3a8ed825-4863-4e38-a4a0-70f0e653e7ed
+		summarizeBy: sum
+		sourceColumn: frequency_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary_score
+		dataType: int64
+		lineageTag: 0dcacff2-2414-4137-8b82-47190742d924
+		summarizeBy: sum
+		sourceColumn: monetary_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column rfm_score
+		dataType: string
+		lineageTag: 37643ae0-cb66-4486-8dc3-b1ac39ef3ba7
+		summarizeBy: none
+		sourceColumn: rfm_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_segment
+		dataType: string
+		lineageTag: 9620fa5d-7b91-41a5-af4f-b9dfdd931f95
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Customer RFM' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="customer_rfm"]}[Data]
+				in
+				    View
+

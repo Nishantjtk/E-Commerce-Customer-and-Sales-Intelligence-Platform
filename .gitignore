@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+data/processed/
+output/*.csv
+output/figures/*.png
+powerbi/.pbi/
+powerbi/**/.pbi/
+powerbi/**/*.pbix
+powerbi/archive/
+powerbi/backups/

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "184f295f071928fcb9e8",
+  "position": {
+    "x": 16,
+    "y": 76,
+    "z": 1000,
+    "height": 500,
+    "width": 900,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order"
+                    }
+                  },
+                  "Property": "order_id"
+                }
+              },
+              "queryRef": "Fact Order.order_id",
+              "nativeQueryRef": "Order ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order"
+                    }
+                  },
+                  "Property": "Purchase Date"
+                }
+              },
+              "queryRef": "Fact Order.Purchase Date",
+              "nativeQueryRef": "Purchase Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order"
+                    }
+                  },
+                  "Property": "Delivery Status"
+                }
+              },
+              "queryRef": "Fact Order.Delivery Status",
+              "nativeQueryRef": "Delivery Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order"
+                    }
+                  },
+                  "Property": "item_revenue"
+                }
+              },
+              "queryRef": "Fact Order.item_revenue",
+              "nativeQueryRef": "item_revenue"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order"
+                    }
+                  },
+                  "Property": "freight_revenue"
+                }
+              },
+              "queryRef": "Fact Order.freight_revenue",
+              "nativeQueryRef": "freight_revenue"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer Order History'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

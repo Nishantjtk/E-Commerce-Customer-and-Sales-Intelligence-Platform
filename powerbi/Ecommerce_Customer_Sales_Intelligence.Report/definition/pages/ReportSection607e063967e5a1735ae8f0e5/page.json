@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection607e063967e5a1735ae8f0e5",
+  "displayName": "Product, Category & Seller Intelligence",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "e2dd57414e1812a5c156",
+      "target": "1b673d8583a13b9bff85",
+      "type": "NoFilter"
+    }
+  ]
+}

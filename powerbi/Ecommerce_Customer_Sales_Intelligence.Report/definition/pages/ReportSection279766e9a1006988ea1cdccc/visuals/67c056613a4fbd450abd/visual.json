@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "67c056613a4fbd450abd",
+  "position": {
+    "x": 16,
+    "y": 150,
+    "z": 1000,
+    "height": 552,
+    "width": 1248,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "product_id"
+                }
+              },
+              "queryRef": "Fact Order Line.product_id",
+              "nativeQueryRef": "Product ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Category"
+                    }
+                  },
+                  "Property": "category_name"
+                }
+              },
+              "queryRef": "Dim Category.category_name",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "seller_id"
+                }
+              },
+              "queryRef": "Fact Order Line.seller_id",
+              "nativeQueryRef": "Seller ID"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "Delivered Item Revenue (Line)"
+                }
+              },
+              "queryRef": "Fact Order Line.Delivered Item Revenue (Line)",
+              "nativeQueryRef": "Delivered Item Revenue (Line)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Order Line"
+                    }
+                  },
+                  "Property": "Delivered Orders (Line)"
+                }
+              },
+              "queryRef": "Fact Order Line.Delivered Orders (Line)",
+              "nativeQueryRef": "Delivered Orders (Line)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Seller Product & Category Performance'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

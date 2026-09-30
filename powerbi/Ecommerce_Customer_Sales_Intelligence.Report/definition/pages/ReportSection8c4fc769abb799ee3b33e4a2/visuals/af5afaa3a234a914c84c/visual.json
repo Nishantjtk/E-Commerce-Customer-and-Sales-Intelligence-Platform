@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "af5afaa3a234a914c84c",
+  "position": {
+    "x": 630,
+    "y": 200,
+    "z": 1000,
+    "height": 260,
+    "width": 634,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Category"
+                    }
+                  },
+                  "Property": "category_name"
+                }
+              },
+              "queryRef": "Dim Category.category_name",
+              "nativeQueryRef": "Category",
+              "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Delivered Orders"
+                }
+              },
+              "queryRef": "Category Experience.Category Delivered Orders",
+              "nativeQueryRef": "Category Delivered Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Average Review Score"
+                }
+              },
+              "queryRef": "Category Experience.Category Average Review Score",
+              "nativeQueryRef": "Category Average Review Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Late Delivery Rate"
+                }
+              },
+              "queryRef": "Category Experience.Category Late Delivery Rate",
+              "nativeQueryRef": "Category Late Delivery Rate"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Category Experience"
+                    }
+                  },
+                  "Property": "Category Revenue"
+                }
+              },
+              "queryRef": "Category Experience.Category Revenue",
+              "nativeQueryRef": "Category Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Category Experience"
+                  }
+                },
+                "Property": "Category Revenue"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top Categories by Revenue'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

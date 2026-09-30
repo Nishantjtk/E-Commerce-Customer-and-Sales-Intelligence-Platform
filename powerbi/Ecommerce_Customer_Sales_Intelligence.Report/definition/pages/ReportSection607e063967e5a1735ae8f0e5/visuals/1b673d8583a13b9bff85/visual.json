@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "1b673d8583a13b9bff85",
+  "position": {
+    "x": 854,
+    "y": 100,
+    "z": 1000,
+    "height": 270,
+    "width": 410,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Seller"
+                    }
+                  },
+                  "Property": "seller_id"
+                }
+              },
+              "queryRef": "Dim Seller.seller_id",
+              "nativeQueryRef": "Seller ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Seller"
+                    }
+                  },
+                  "Property": "seller_state"
+                }
+              },
+              "queryRef": "Dim Seller.seller_state",
+              "nativeQueryRef": "Seller State"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Seller Experience"
+                    }
+                  },
+                  "Property": "Seller Revenue"
+                }
+              },
+              "queryRef": "Seller Experience.Seller Revenue",
+              "nativeQueryRef": "Seller Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Seller Experience"
+                    }
+                  },
+                  "Property": "Seller Delivered Orders"
+                }
+              },
+              "queryRef": "Seller Experience.Seller Delivered Orders",
+              "nativeQueryRef": "Seller Delivered Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Seller Experience"
+                    }
+                  },
+                  "Property": "Seller Average Review Score"
+                }
+              },
+              "queryRef": "Seller Experience.Seller Average Review Score",
+              "nativeQueryRef": "Seller Average Review Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Seller Experience"
+                    }
+                  },
+                  "Property": "Seller Late Delivery Rate"
+                }
+              },
+              "queryRef": "Seller Experience.Seller Late Delivery Rate",
+              "nativeQueryRef": "Seller Late Delivery Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Seller Experience"
+                  }
+                },
+                "Property": "Seller Revenue"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top Sellers'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

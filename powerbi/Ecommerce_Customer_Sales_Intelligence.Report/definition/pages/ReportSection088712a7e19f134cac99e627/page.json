@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection088712a7e19f134cac99e627",
+  "displayName": "Delivery & Customer Experience",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "8d2c82809ad1327f2bc7",
+      "target": "c46a3a7f6cc7f6e89f2b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "3479d69ed4d728c2a2e8",
+      "target": "c46a3a7f6cc7f6e89f2b",
+      "type": "NoFilter"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+table 'localhost:5433: ecommerce_intelligence'
+	lineageTag: eec537e0-dd12-40b7-80bd-cb52360448a9
+
+	column Name
+		dataType: string
+		lineageTag: f36ebab5-e432-4854-9e25-6f607cd34cfb
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: string
+		lineageTag: ee9f6644-a87e-4863-8eab-269532f13a2a
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+	column Schema
+		dataType: string
+		lineageTag: 106d6231-3b67-4930-a000-4cfb4054fa35
+		summarizeBy: none
+		sourceColumn: Schema
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		dataType: string
+		lineageTag: be454c4d-a811-472c-bdd1-db814ef1c41e
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kind
+		dataType: string
+		lineageTag: 4ed18752-4b54-4d24-9a4c-6a3d5bc54b73
+		summarizeBy: none
+		sourceColumn: Kind
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'localhost:5433: ecommerce_intelligence' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence")
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

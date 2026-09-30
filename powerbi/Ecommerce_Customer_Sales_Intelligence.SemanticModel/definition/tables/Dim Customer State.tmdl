@@ -1,0 +1,20 @@
+table 'Dim Customer State'
+	lineageTag: 6b7b67ce-6c1e-4d83-a06b-4066e838d73a
+
+	column customer_state
+		dataType: string
+		lineageTag: 0b5d98f1-5aba-4bc5-b7dd-927860b3ed5e
+		sourceColumn: customer_state
+
+	partition 'Dim Customer State' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_financials"]}[Data],
+				    Selected = Table.SelectColumns(View, {"customer_state"}),
+				    NonBlank = Table.SelectRows(Selected, each [customer_state] <> null and [customer_state] <> ""),
+				    DistinctStates = Table.Distinct(NonBlank)
+				in
+				    DistinctStates
+

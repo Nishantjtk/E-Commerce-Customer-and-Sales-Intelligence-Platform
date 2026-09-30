@@ -1,0 +1,110 @@
+table 'Fact Payment'
+	lineageTag: 0cbcbc85-76dc-4641-a5c2-48c6ed87eb54
+
+	measure 'Delivered Payment Value' = CALCULATE(SUM('Fact Payment'[payment_value]), 'Fact Payment'[order_status] = "delivered")
+		lineageTag: c0d6e248-9ded-4fd6-afb0-64c604664c51
+
+	measure 'Payment Records' = COUNTROWS('Fact Payment')
+		lineageTag: c6b0033c-9366-4dea-ae7e-44507af0068c
+
+	measure 'Average Payment Installments' = AVERAGE('Fact Payment'[payment_installments])
+		lineageTag: 4e9299d0-72c9-43b2-bdb1-3bedb8bfe715
+
+	measure 'Payment Value Share' =
+			DIVIDE(
+			    [Delivered Payment Value],
+			    CALCULATE([Delivered Payment Value], REMOVEFILTERS('Fact Payment'[payment_type]))
+			)
+		lineageTag: 0a4400c5-4f36-49b6-964d-845515c586b0
+
+	column order_id
+		dataType: string
+		lineageTag: 7de94f94-02b1-4936-b7a7-b93c9010fc7f
+		sourceColumn: order_id
+
+	column payment_sequential
+		dataType: int64
+		lineageTag: 02459c71-16cd-4ce7-af17-553a3450d2fd
+		sourceColumn: payment_sequential
+
+	column payment_type
+		dataType: string
+		lineageTag: 6d6a327c-1a24-4dd9-9518-7e41dbf101b6
+		sourceColumn: payment_type
+
+	column payment_installments
+		dataType: int64
+		lineageTag: 3166d551-8396-49b6-8757-911fda883a2f
+		sourceColumn: payment_installments
+
+	column payment_value
+		dataType: double
+		lineageTag: d21e3d96-aca3-4db0-a9fe-20100347766d
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		lineageTag: 7e3a877f-ba44-48c5-b13c-d2d92a8f4386
+		sourceColumn: order_purchase_timestamp
+
+	column order_status
+		dataType: string
+		lineageTag: 3065b604-51a9-4697-a2d4-f372f7627229
+		sourceColumn: order_status
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 2bb4c4a3-75f2-43a4-a1ea-3e28badb1f67
+		sourceColumn: customer_unique_id
+
+	column customer_state
+		dataType: string
+		lineageTag: 4feb8740-88c5-40a2-b192-2ee0f92feb79
+		sourceColumn: customer_state
+
+	column item_revenue
+		dataType: double
+		lineageTag: 16b2fa04-1c58-4258-bd4c-6aec76b6e7df
+		summarizeBy: sum
+		sourceColumn: item_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_merchandise_value
+		dataType: double
+		lineageTag: 191c35aa-7cd7-422f-bc78-a2979eaab6ef
+		summarizeBy: sum
+		sourceColumn: gross_merchandise_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Purchase Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b6708f0f-b9ed-48df-80d3-b8645f4186b1
+		summarizeBy: none
+		sourceColumn: Purchase Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Payment' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="payment_detail"]}[Data],
+				    #"Added Purchase Date" = Table.AddColumn(View, "Purchase Date", each Date.From([order_purchase_timestamp]), type date)
+				in
+				    #"Added Purchase Date"
+

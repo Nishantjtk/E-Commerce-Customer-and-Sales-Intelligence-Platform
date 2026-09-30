@@ -1,0 +1,87 @@
+relationship FactOrder_PurchaseDate_DimDate_Date
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Order'.'Purchase Date'
+	toColumn: 'Dim Date'.Date
+
+relationship FactOrderLine_PurchaseDate_DimDate_Date
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Order Line'.'Purchase Date'
+	toColumn: 'Dim Date'.Date
+
+relationship FactPayment_PurchaseDate_DimDate_Date
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Payment'.'Purchase Date'
+	toColumn: 'Dim Date'.Date
+
+relationship FactReview_PurchaseDate_DimDate_Date
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Review'.'Purchase Date'
+	toColumn: 'Dim Date'.Date
+
+relationship FactOrder_Customer_DimCustomer
+	fromColumn: 'Fact Order'.customer_unique_id
+	toColumn: 'Dim Customer'.customer_unique_id
+
+relationship FactOrderLine_Customer_DimCustomer
+	fromColumn: 'Fact Order Line'.customer_unique_id
+	toColumn: 'Dim Customer'.customer_unique_id
+
+relationship FactPayment_Customer_DimCustomer
+	fromColumn: 'Fact Payment'.customer_unique_id
+	toColumn: 'Dim Customer'.customer_unique_id
+
+relationship FactReview_Customer_DimCustomer
+	fromColumn: 'Fact Review'.customer_unique_id
+	toColumn: 'Dim Customer'.customer_unique_id
+
+relationship CustomerRFM_Customer_DimCustomer
+	fromColumn: 'Customer RFM'.customer_unique_id
+	toColumn: 'Dim Customer'.customer_unique_id
+
+relationship FactOrder_State_DimCustomerState
+	fromColumn: 'Fact Order'.customer_state
+	toColumn: 'Dim Customer State'.customer_state
+
+relationship FactOrderLine_State_DimCustomerState
+	fromColumn: 'Fact Order Line'.customer_state
+	toColumn: 'Dim Customer State'.customer_state
+
+relationship FactPayment_State_DimCustomerState
+	fromColumn: 'Fact Payment'.customer_state
+	toColumn: 'Dim Customer State'.customer_state
+
+relationship FactReview_State_DimCustomerState
+	fromColumn: 'Fact Review'.customer_state
+	toColumn: 'Dim Customer State'.customer_state
+
+relationship FactOrderLine_Category_DimCategory
+	fromColumn: 'Fact Order Line'.category_name
+	toColumn: 'Dim Category'.category_name
+
+relationship CategoryExperience_Category_DimCategory
+	fromColumn: 'Category Experience'.category_name
+	toColumn: 'Dim Category'.category_name
+
+relationship FactOrderLine_Seller_DimSeller
+	fromColumn: 'Fact Order Line'.seller_id
+	toColumn: 'Dim Seller'.seller_id
+
+relationship SellerExperience_Seller_DimSeller
+	fromColumn: 'Seller Experience'.seller_id
+	toColumn: 'Dim Seller'.seller_id
+
+relationship dac7334b-579f-4007-b1f9-95990437f78a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Customer RFM'.last_purchase_date
+	toColumn: LocalDateTable_6bf2cdb4-b40c-4924-a2bc-653866404558.Date
+
+relationship c020bcec-a00a-4aeb-afa9-2ef120f92fc3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Cohort Retention'.cohort_month
+	toColumn: LocalDateTable_20420e70-dfbb-478a-aed3-84f2d8599d22.Date
+
+relationship 80211a64-7022-4879-92e5-0f0b375f08ea
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Cohort Retention'.purchase_month
+	toColumn: LocalDateTable_62c8c438-9fdb-48a5-9912-d39302c1e366.Date
+

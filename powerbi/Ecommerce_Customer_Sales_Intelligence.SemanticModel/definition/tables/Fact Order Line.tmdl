@@ -1,0 +1,119 @@
+table 'Fact Order Line'
+	lineageTag: 415cbb01-9093-48a2-9f93-2b1515af3062
+
+	measure 'Delivered Item Revenue (Line)' = CALCULATE(SUM('Fact Order Line'[price]), 'Fact Order Line'[order_status] = "delivered")
+		lineageTag: 27e40477-55ca-4b50-b5f0-063cf2c32711
+
+	measure 'Delivered Freight (Line)' = CALCULATE(SUM('Fact Order Line'[freight_value]), 'Fact Order Line'[order_status] = "delivered")
+		lineageTag: 370be72c-4332-49a3-82df-f7cad598eaf6
+
+	measure 'Delivered Line GMV' = [Delivered Item Revenue (Line)] + [Delivered Freight (Line)]
+		lineageTag: c58d54f5-6266-4372-b24b-3e51176c6761
+
+	measure 'Delivered Orders (Line)' = CALCULATE(DISTINCTCOUNT('Fact Order Line'[order_id]), 'Fact Order Line'[order_status] = "delivered")
+		lineageTag: 13a8c1a1-eed0-42cc-b1a1-a9554618a334
+
+	measure 'Product Rank by Revenue' = RANKX(ALL('Fact Order Line'[product_id]), [Delivered Item Revenue (Line)], , DESC, DENSE)
+		lineageTag: f4599cf2-50ca-4a9b-9892-4be83a966b96
+
+	column order_id
+		dataType: string
+		lineageTag: ce47acbd-922e-4cd2-a7d9-9028168d679a
+		sourceColumn: order_id
+
+	column order_item_id
+		dataType: int64
+		lineageTag: 5128cf24-f8eb-4433-8fb3-b2445eebce68
+		sourceColumn: order_item_id
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		lineageTag: c42845aa-0400-47fc-b1d6-467b332de854
+		sourceColumn: order_purchase_timestamp
+
+	column order_status
+		dataType: string
+		lineageTag: 9427f4c7-4d78-4cae-839a-4a32e53fa7bd
+		sourceColumn: order_status
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 6d7ae687-3196-44ea-9c9e-1fc81b031df4
+		sourceColumn: customer_unique_id
+
+	column customer_state
+		dataType: string
+		lineageTag: 0f657eb5-d3a3-4f78-90ef-5a8c3ed91843
+		sourceColumn: customer_state
+
+	column seller_id
+		dataType: string
+		lineageTag: 114676b7-809b-4336-bf06-6cfe6913500e
+		sourceColumn: seller_id
+
+	column seller_state
+		dataType: string
+		lineageTag: c172c09b-ea55-4263-b7a1-0a35105228c5
+		sourceColumn: seller_state
+
+	column product_id
+		dataType: string
+		lineageTag: 2697f087-9383-4b52-8c25-c0b5a6482f51
+		sourceColumn: product_id
+
+	column category_name
+		dataType: string
+		lineageTag: 64811c0d-2450-4451-9b6a-34948310ceab
+		sourceColumn: category_name
+
+	column price
+		dataType: double
+		lineageTag: 99336c9d-0a0c-4758-90ab-85b421bc63af
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_value
+		dataType: double
+		lineageTag: f3117e97-fe92-40d2-8001-bc7f83f0874f
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column line_revenue
+		dataType: double
+		lineageTag: 2a03ebc2-ddb2-48dc-a33e-56bae92d449e
+		summarizeBy: sum
+		sourceColumn: line_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Purchase Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 27f9bc75-8788-40dc-b753-aff2b959d9cd
+		summarizeBy: none
+		sourceColumn: Purchase Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Order Line' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5433", "ecommerce_intelligence"),
+				    View = Source{[Schema="analytics", Item="order_line"]}[Data],
+				    #"Added Purchase Date" = Table.AddColumn(View, "Purchase Date", each Date.From([order_purchase_timestamp]), type date)
+				in
+				    #"Added Purchase Date"
+
